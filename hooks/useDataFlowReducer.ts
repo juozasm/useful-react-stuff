@@ -50,12 +50,14 @@ function reducer(state: State = initialState, action: Action) {
   }
 }
 
-export default function useDataFlowReducer<T>() {
+export default function useDataFlowReducer<T>(
+  initialValue: T | null | undefined = null
+) {
   const [state, dispatch] = useReducer<Reducer<State, Action>>(
     reducer,
     initialState
   );
-  const [data, setData] = useState<T | null>(null);
+  const [data, setData] = useState<T | null | undefined>(initialValue);
 
   const onSuccess = useCallback((d: T) => {
     setData(d);
